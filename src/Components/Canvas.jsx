@@ -6,7 +6,6 @@ const Canvas = ({ image }) => {
   const [drawing, setDrawing] = useState(false);
   // const [drag, setDrag] = useState(false);
   const [lines, setLines] = useState([]);
-  const [savedLines, setSavedLines] = useState([]);
   const [startCoord, setStartCoord] = useState({});
 
   if (!image || image == "") return;
@@ -17,13 +16,6 @@ const Canvas = ({ image }) => {
     tempLines.pop();
     setLines(() => [...tempLines]);
     setSavedLines(() => [...lines]);
-  };
-  const handleRedo = () => {
-    console.log("Redo");
-    let tempLines = [...savedLines];
-    // tempLines.pop();
-    // tempLines.pop();
-    setLines(() => [...tempLines]);
   };
 
   const startDraw = (e) => {
@@ -62,17 +54,6 @@ const Canvas = ({ image }) => {
     lines.splice(lines.length - 1, 1, lastLine);
     setLines(lines.concat());
   };
-  useEffect(() => {
-    // document.addEventListener("keydown", handleUndo);
-    document.dispatchEvent(
-      new KeyboardEvent("keydown", { key: "z", ctrlKey: true })
-    );
-
-    return () => {
-      document.removeEventListener("keydown");
-    };
-  }, [third]);
-
   return (
     <Stage
       width={window.innerWidth}
@@ -90,7 +71,6 @@ const Canvas = ({ image }) => {
       </Layer>
       <Layer>
         <Text text="undo" onClick={handleUndo} />
-        <Text text="redo" x={40} onClick={handleRedo} />
         {lines.map((line, i) => (
           <Line
             key={i}
