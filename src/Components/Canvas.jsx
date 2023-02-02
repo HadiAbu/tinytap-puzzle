@@ -1,44 +1,31 @@
 import React, { useState } from "react";
 import PuzzleImage from "./PuzzleImage";
-import { Stage, Layer, Text, Line, Rect } from "react-konva";
+import { Stage, Layer, Text, Line, Rect, Group, Shape } from "react-konva";
+import PuzzlePiece from "./PuzzlePiece";
 
 const Canvas = ({ image }) => {
-  const [drawing, setDrawing] = useState(false);
-  // const [drag, setDrag] = useState(false);
-  const [lines, setLines] = useState([]);
-  const [startCoord, setStartCoord] = useState({});
-
   if (!image || image == "") return;
+
+  const [drawing, setDrawing] = useState(false);
+  const [lines, setLines] = useState([]);
+  // const [startCoord, setStartCoord] = useState({});
+
   const handleUndo = () => {
     console.log("undo");
     let tempLines = [...lines];
+    // // remove last two point that make a line
     tempLines.pop();
     tempLines.pop();
     setLines(() => [...tempLines]);
-    setSavedLines(() => [...lines]);
   };
 
   const startDraw = (e) => {
-    // if (drag) return;
     setDrawing(true);
-    console.log("start draw");
-    console.log(`x: ${e.evt.x}, y: ${e.evt.y}`);
-
     const pos = e.target.getStage().getPointerPosition();
-    setLines([...lines, { points: [pos.x, pos.y] }]);
-    setStartCoord({ x: pos.x, y: pos.y });
+    setLines([...lines, { points: [pos.x.toFixed(2), pos.y.toFixed(2)] }]);
   };
   const stopDraw = (e) => {
     // if (drag) return;
-    console.log("stop draw");
-    console.log(`x: ${e.evt.x}, y: ${e.evt.y}`);
-
-    // connect first point of line to the last point
-    let lastLine = lines[lines.length - 1];
-    lastLine.points = lastLine.points.concat([startCoord.x, startCoord.y]);
-    lines.splice(lines.length - 1, 1, lastLine);
-    setLines(lines.concat());
-
     setDrawing(false);
   };
   const draw = (e) => {
@@ -46,43 +33,68 @@ const Canvas = ({ image }) => {
     if (!drawing) return;
     console.log("draw");
 
-    // add point
     const stage = e.target.getStage();
     const point = stage.getPointerPosition();
     let lastLine = lines[lines.length - 1];
+    // add point
     lastLine.points = lastLine.points.concat([point.x, point.y]);
+
+    // replace last line
     lines.splice(lines.length - 1, 1, lastLine);
     setLines(lines.concat());
   };
+
   return (
     <Stage
-      width={window.innerWidth}
-      height={window.innerHeight}
+      width={800}
+      height={500}
       onMouseDown={startDraw}
       onMouseUp={stopDraw}
       // onMouseLeave={stopDraw}
       onMouseMove={draw}
     >
       <Layer>
-        <Rect width={800} height={500} fill="red" />
+        <Rect
+          width={window.innerWidth}
+          height={window.innerHeight}
+          fill="grey"
+        />
       </Layer>
+      <Layer></Layer>
       <Layer>
         <PuzzleImage imageSrc={image} />
-      </Layer>
-      <Layer>
-        <Text text="undo" onClick={handleUndo} />
+        {lines.length != 0 &&
+          lines.map((line, i) => (
+            <PuzzlePiece key={i} imageSrc={image} points={line.points} />
+          ))}
+        {/* {lines.length != 0 &&
+          lines.map((line, i) => (
+            <PuzzlePieceGrayBack key={i} points={line.points} />
+          ))} */}
+        <Text
+          text="UNDO"
+          fill="black"
+          x={5}
+          y={5}
+          fontSize={20}
+          fillStyle="white"
+          onClick={handleUndo}
+        />
+        {/* <PuzzlePiece imageSrc={image} points={[1, 2]} /> */}
+
         {lines.map((line, i) => (
-          <Line
-            key={i}
-            points={line.points}
-            stroke="#df4b26"
-            strokeWidth={5}
-            draggable
-            tension={0.5}
-            lineCap="round"
-            lineJoin="round"
-            globalCompositeOperation={"source-over"}
-          />
+          <Group key={i}>
+            <Line
+              points={line.points}
+              // stroke="#df4b26"
+              // strokeWidth={5}
+              // closed
+              tension={0.5}
+              lineCap="round"
+              lineJoin="round"
+              globalCompositeOperation={"source-over"}
+            />
+          </Group>
         ))}
       </Layer>
     </Stage>
