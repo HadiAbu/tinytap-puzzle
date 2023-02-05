@@ -4,7 +4,7 @@ import { Image } from "react-konva";
 
 const PuzzleImage = ({ imageSrc }) => {
   const [image] = useImage(imageSrc);
-  return <Image image={image} width={800} height={500} />;
+  return <Image image={image} width={900} height={500} />;
 };
 
 export default PuzzleImage;

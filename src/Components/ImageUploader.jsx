@@ -1,28 +1,30 @@
 import React from "react";
 
-const ImageUploader = React.forwardRef(({ setImage }, canvasRef) => {
+const ImageUploader = ({ setImage, firstMessage = true }) => {
   function handleImage(e) {
     var reader = new FileReader();
-    reader.onload = function (event) {
+    reader.onloadend = function (event) {
       var img = new Image();
-      img.onload = function () {
-        // changing canvas width and height
-        // canvasRef.current.width = img.width;
-        // canvasRef.current.height = img.height;
-        // // changing canvas content
-        // canvasRef.current.getContext("2d").drawImage(img, 0, 0);
-      };
       img.src = event.target.result;
       setImage(img.src);
     };
     reader.readAsDataURL(e.target.files[0]);
   }
+
   return (
-    <div>
-      <label>Image File:</label>
+    <div style={{ color: "palevioletred" }}>
+      {firstMessage ? (
+        <>
+          <h1>Helllllloooo</h1>
+          <h3>Let's start with uploading an image File..</h3>
+          <br />
+        </>
+      ) : (
+        <label>Upload more images: </label>
+      )}
       <input type="file" onChange={handleImage} />
     </div>
   );
-});
+};
 
 export default ImageUploader;

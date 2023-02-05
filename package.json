@@ -1,5 +1,6 @@
 {
   "name": "tinytap-puzzle",
+  "author": "Hadi Abu",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,6 +13,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-konva": "^18.2.3",
+    "styled-components": "^5.3.6",
     "use-image": "^1.1.0"
   },
   "devDependencies": {
