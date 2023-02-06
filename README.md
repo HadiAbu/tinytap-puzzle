@@ -1,5 +1,5 @@
 # tinytap-puzzle
-tinytap home assignment puzzle maker
+Tinytap home assignment puzzle maker built with React and Konva
 
 
 screenshots:
