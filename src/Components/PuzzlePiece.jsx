@@ -30,6 +30,9 @@ const PuzzlePiece = ({ index, imageSrc, points, handleUndo }) => {
         onDblClick={() => {
           handleUndo("removeLineDbClick", index);
         }}
+        onDblTap={() => {
+          handleUndo("removeLineDbClick", index);
+        }}
       />
       <Image
         image={closeIcon}
@@ -38,6 +41,9 @@ const PuzzlePiece = ({ index, imageSrc, points, handleUndo }) => {
         width={14}
         height={14}
         onClick={() => {
+          handleUndo("removeLine", index);
+        }}
+        onTap={() => {
           handleUndo("removeLine", index);
         }}
         globalCompositeOperation={"source-over"}

@@ -81,6 +81,9 @@ const Canvas = ({ image, visible }) => {
         onMouseDown={startDraw}
         onMouseMove={draw}
         onMouseUp={() => setDrawing(false)}
+        onTouchStart={startDraw}
+        onTouchEnd={() => setDrawing(false)}
+        onTouchMove={draw}
         visible={visible}
       >
         <Layer>

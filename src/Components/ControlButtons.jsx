@@ -22,6 +22,7 @@ const ControlButtons = ({ handleUndo, handleReset }) => {
         fontFamily={"Shadows Into Light"}
         fillStyle="white"
         onClick={() => handleUndo("undoLast")}
+        onTap={() => handleUndo("undoLast")}
       />
       <Rect
         x={70}
@@ -41,6 +42,7 @@ const ControlButtons = ({ handleUndo, handleReset }) => {
         fontFamily={"Shadows Into Light"}
         fillStyle="white"
         onClick={handleReset}
+        onTap={handleReset}
       />
       <Text
         text="You can drag and drop your puzzle pieces here"
