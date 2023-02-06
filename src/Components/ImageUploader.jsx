@@ -20,9 +20,12 @@ const ImageUploader = ({ setImage, firstMessage = true }) => {
           <br />
         </>
       ) : (
-        <label>Upload more images: </label>
+        <>
+          <br />
+          <label style={{ display: "flex" }}>Upload more images: </label>
+        </>
       )}
-      <input type="file" onChange={handleImage} />
+      <input style={{ display: "flex" }} type="file" onChange={handleImage} />
     </div>
   );
 };
