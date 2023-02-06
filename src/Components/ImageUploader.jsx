@@ -8,7 +8,7 @@ const ImageUploader = ({ setImage, firstMessage = true }) => {
       img.src = event.target.result;
       setImage(img.src);
     };
-    reader.readAsDataURL(e.target.files[0]);
+    e?.target?.files[0] && reader.readAsDataURL(e.target.files[0]);
   }
 
   return (
