@@ -1,7 +1,8 @@
 import React from "react";
-import "../App.css";
+import "./Dialog.css";
 
-const Dialog = ({ title, content, onConfirm, onCancel }) => {
+const Dialog = ({ open, title, content, onConfirm, onCancel }) => {
+  if (!open) return null;
   return (
     <div className="dialog">
       <h3 style={{ borderBottom: "1px black solid", paddingBottom: "10px" }}>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Rect, Text } from "react-konva";
 
-const ControlButtons = ({ handleUndo, handleReset }) => {
+const ControlButtons = ({ handleUndoLast, handleReset }) => {
   return (
     <>
       <Rect
@@ -21,8 +21,8 @@ const ControlButtons = ({ handleUndo, handleReset }) => {
         fontSize={20}
         fontFamily={"Shadows Into Light"}
         fillStyle="white"
-        onClick={() => handleUndo("undoLast")}
-        onTap={() => handleUndo("undoLast")}
+        onClick={handleUndoLast}
+        onTap={handleUndoLast}
       />
       <Rect
         x={70}
